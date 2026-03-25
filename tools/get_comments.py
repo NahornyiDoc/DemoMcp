@@ -23,10 +23,7 @@ def register(mcp: FastMCP) -> None:
         """
         if not issue_key:
             raise ToolError("issue_key cannot be empty")
-
-        # BUG: strip() не вызывается перед upper()
-        # "DEV-1 " → upper() → "DEV-1 " → проходит regex
-        # но API вернёт 404 потому что пробел в URL
+        
         cleaned_key = issue_key.upper()
         if not re.match(r"^[A-Z]+-\d+$", cleaned_key):
             raise ToolError(
@@ -45,7 +42,6 @@ def register(mcp: FastMCP) -> None:
         for c in comments:
             author = c.get("author", {})
 
-            # извлекаем plain text из ADF
             texts = []
             body  = c.get("body", {})
             for block in body.get("content", []):

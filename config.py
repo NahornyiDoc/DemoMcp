@@ -18,7 +18,6 @@ def _build_headers(email: str, token: str) -> dict[str, str]:
         "Content-Type": "application/json",
     }
 
-
 _args = _parse_args()
 
 JIRA_BASE_URL = _args.url.rstrip("/")
